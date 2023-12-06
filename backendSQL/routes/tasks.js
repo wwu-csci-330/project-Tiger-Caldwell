@@ -34,17 +34,37 @@ router.route("/").post((req, res) => {
 
 /* GET A TASK */
 router.route("/:id").get((req, res) => {
-  // write this method yourself
+  let sql = "SELECT * FROM tasks WHERE _id = ?";
+
+  let query = db.query(sql, req.params.id, (err, results) => {
+    if (err) throw err;
+    res.json({ result: results[0] });
+  });
 });
 
 /* DELETE A TASK */
 router.route("/:id").delete((req, res) => {
-  // write this method yourself
+  let sql = "DELETE FROM tasks WHERE _id = ?";
+
+  let query = db.query(sql, req.params.id, (err) => {
+    if (err) throw err;
+    res.sendStatus(200)
+  })
 });
 
 /* UPDATE A TASK */
 router.route("/:id").put((req, res) => {
-  // write this method yourself
+  let sql = "UPDATE tasks SET reminder = !reminder WHERE _id = ?";
+
+  db.query(sql, req.params.id, (err) => {
+    if (err) throw err;
+    let sql = "SELECT * FROM tasks WHERE _id = ?";
+    db.query(sql, req.params.id, (err, results, fields) => {
+      if (err) throw err;
+      console.log(results[0])
+      res.json({ result: results[0] });
+    })
+  })
 });
 
 module.exports = router;
