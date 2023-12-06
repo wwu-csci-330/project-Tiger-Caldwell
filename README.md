@@ -2,8 +2,7 @@
 
 ## Team members
 
-- Name 1
-- Name 2
+- Tiger Caldwell
 
 ## Project instructions
 
